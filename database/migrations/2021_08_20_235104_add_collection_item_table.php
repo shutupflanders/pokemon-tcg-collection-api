@@ -16,8 +16,11 @@ class AddCollectionItemTable extends Migration
         Schema::create('collection_items', function (Blueprint $table){
             $table->id();
             $table->unsignedBigInteger('card_id');
-            $table->integer('count');
+            $table->integer('count')->default(0);
+            $table->string('variation')->nullable();
             $table->timestamps();
+
+            $table->unique(['card_id', 'variation'], 'card_variation');
 
             $table->foreign('card_id')->references('id')->on('cards');
         });

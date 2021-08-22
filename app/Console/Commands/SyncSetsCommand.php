@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Helpers\PokeApiHelper;
+use App\Models\Sets;
 use Illuminate\Console\Command;
 use Pokemon\Models\Set;
 
@@ -43,16 +44,23 @@ class SyncSetsCommand extends Command
      */
     public function handle()
     {
+        $this->info('Getting sets from remote API...');
         $sets = $this->apiHelper->set();
 
-        $sets->map(function(Set $set){
+        $formattedSets = $sets->map(function(Set $set, $key){
             return [
+                'id'=>($key + 1),
                 'set_id'=>$set->getId(),
                 'name'=>$set->getName(),
                 'series'=>$set->getSeries(),
                 'total'=>$set->getTotal()
             ];
         });
+
+        $this->info('Syncing '.$formattedSets->count().' sets with local database...');
+        Sets::upsert($formattedSets->toArray(), ['id', 'set_id']);
+
+        $this->info('Done.');
 
 
     }

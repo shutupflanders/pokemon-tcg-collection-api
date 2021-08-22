@@ -20,6 +20,7 @@ class Sets extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'set_id',
         'name',
         'series',

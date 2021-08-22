@@ -22,6 +22,7 @@ class Cards extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'set_id',
         'card_id',
         'name',

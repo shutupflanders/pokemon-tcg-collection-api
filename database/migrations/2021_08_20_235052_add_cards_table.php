@@ -24,6 +24,7 @@ class AddCardsTable extends Migration
             $table->timestamps();
 
             $table->index('card_id', 'card_id');
+            $table->unique(['card_id', 'set_id'], 'card_set');
 
             $table->foreign('set_id')->references('id')->on('sets');
         });
