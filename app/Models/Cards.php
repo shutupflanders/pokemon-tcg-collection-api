@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property integer $id
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $rarity
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property Sets $set
+ * @property CollectionItems[] $collectionReference
  */
 class Cards extends Model
 {
@@ -35,6 +38,14 @@ class Cards extends Model
      */
     public function set(): BelongsTo
     {
-        return $this->belongsTo(Sets::class, 'id', 'set_id');
+        return $this->belongsTo(Sets::class, 'set_id', 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function collectionReference(): HasMany
+    {
+        return $this->hasMany(CollectionItems::class, 'card_id', 'id');
     }
 }

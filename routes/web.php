@@ -1,6 +1,7 @@
 <?php
 
     use App\Domain\Cards\Controllers\CardsController;
+    use App\Domain\Collection\Controllers\CollectionController;
     use App\Domain\Sets\Controllers\SetsController;
     use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,5 @@ Route::get('/', function () {
     Route::get('/sets/{setName}', [SetsController::class, 'view']);
 
     Route::get('/sets/{setId}/cards', [CardsController::class, 'index']);
+
+    Route::get('/search', [CollectionController::class, 'index']);

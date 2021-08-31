@@ -53,7 +53,7 @@ class SyncSetsCommand extends Command
                 'set_id'=>$set->getId(),
                 'name'=>$set->getName(),
                 'series'=>$set->getSeries(),
-                'total'=>$set->getTotal()
+                'total'=>$set->getPrintedTotal()
             ];
         });
 

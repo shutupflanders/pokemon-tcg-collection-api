@@ -8,6 +8,7 @@ use App\Models\CollectionItems;
 use App\Models\Sets;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Pokemon\Models\Card;
@@ -49,6 +50,9 @@ class SyncCollectionCommand extends Command
 
         $line = 1;
         $lines = collect();
+
+        $errors = collect();
+
         while ( ($data = fgetcsv($file, 200, ",")) !==FALSE) {
 
             if($line == 1 && $data[0] !== "Region")
@@ -117,7 +121,7 @@ class SyncCollectionCommand extends Command
                     }
                     catch (ModelNotFoundException $e){
 
-                        $this->error('Card not found - Set #'.$set->id.' Card Search: '.$set->set_id.'-'.ltrim($cardNumber, '0'));
+                        $errors->push('Card not found - Set #'.$set->id.' Card Search: '.$set->set_id.'-'.ltrim($cardNumber, '0'));
                     }
                 }
             }
@@ -125,8 +129,19 @@ class SyncCollectionCommand extends Command
             $line++;
         }
 
-        CollectionItems::upsert($lines->toArray(), ['card_id', 'variation'], ['count']);
-        $this->info('Collection updated.');
+        DB::table(CollectionItems::getTableName())->update(['count'=>0]);
+
+        $updated = CollectionItems::upsert($lines->toArray(), ['card_id', 'variation'], ['count']);
+
+        $this->info('Collection synchronised, '.$updated.' updated.');
+
+        if($errors->count()>0){
+            $this->error('Errors: ');
+            $this->newLine();
+            foreach($errors->toArray() as $error){
+                $this->error($error);
+            }
+        }
 
         $this->info('Done.');
 
