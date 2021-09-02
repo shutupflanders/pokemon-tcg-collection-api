@@ -20,6 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/health-check', function(){
+    return response()->json(['success'=>true, 'message'=>"I'm super, thanks for asking."]);
+});
+
     Route::get('/sets', [SetsController::class, 'index']);
     Route::get('/sets/{setName}', [SetsController::class, 'view']);
 
