@@ -7,13 +7,14 @@
     use App\Models\Cards;
     use App\Models\Sets;
     use Illuminate\Database\Eloquent\ModelNotFoundException;
+    use Illuminate\Support\Str;
 
     class SearchCardAction
     {
         public function handle(SearchCardRequest $request)
         {
             $number = $request->getNumber();
-            if(str_contains($number, "SWSH") || str_contains($number, "SM") || str_contains($number, "XY"))
+            if(Str::contains($number, ["SWSH", "SM", "XY"]))
             {
                 // Presume promo sets here
                 try{
@@ -23,6 +24,18 @@
                     // @TODO friendly error
                     throw $e;
                 }
+            }
+            elseif(Str::contains($number, "RC"))
+            {
+                // Special case for Radiant Collection
+                try{
+                    $sets = Sets::where('name', 'like', 'Generations');
+                }
+                catch (ModelNotFoundException $e){
+                    // @TODO friendly error
+                    throw $e;
+                }
+
             }
             else
             {
