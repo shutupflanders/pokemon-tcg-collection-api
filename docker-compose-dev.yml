@@ -6,20 +6,19 @@ services:
             context: ./docker/8.0
             dockerfile: Dockerfile
             args:
-                WWWGROUP: 1000
+                WWWGROUP: '${WWWGROUP}'
         image: sail-8.0/app
         ports:
             - '${APP_PORT:-80}:80'
         environment:
-            WWWUSER: 1000
-            WWWGROUP: 1000
-            WORKSPACE_PUID: 1000
-            WORKSPACE_PGID: 1000
+            WWWUSER: '${WWWUSER}'
+            LARAVEL_SAIL: 1
+            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
+            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
         volumes:
             - '.:/var/www/html'
-            - '${COLLECTION_CSV_PATH}:/var/www/html/storage/app/data/collection.csv'
         networks:
-            - app
+            - sail
         depends_on:
             - mysql
     mysql:
@@ -33,16 +32,16 @@ services:
             MYSQL_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
         volumes:
-            - 'mysql:/var/lib/mysql'
+            - 'sailmysql:/var/lib/mysql'
         networks:
-            - app
+            - sail
         healthcheck:
           test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
           retries: 3
           timeout: 5s
 networks:
-    app:
+    sail:
         driver: bridge
 volumes:
-    mysql:
+    sailmysql:
         driver: local

@@ -21,7 +21,7 @@ class SyncCollectionCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'collection:sync';
+    protected $signature = 'collection:sync {filename}';
 
     /**
      * The console command description.
@@ -40,12 +40,13 @@ class SyncCollectionCommand extends Command
     {
         $sets = Sets::all();
 
-        if(!file_exists(storage_path('app/data/collection.csv')))
+        $filename = $this->argument('filename');
+        if(!file_exists(storage_path($filename)))
         {
-            throw new \InvalidArgumentException('app/data/collection.csv does not exist.');
+            throw new \InvalidArgumentException($filename.' does not exist.');
         }
 
-        $file_n = storage_path('app/data/collection.csv');
+        $file_n = storage_path($filename);
         $file = fopen($file_n, "r");
 
         $line = 1;
