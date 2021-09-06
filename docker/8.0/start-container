@@ -4,16 +4,20 @@ if [ ! -z "$WWWUSER" ]; then
     usermod -u $WWWUSER sail
 fi
 
+# Wait upto 30s for db to be ready
+php artisan db:ready
+
 if [ ! -d /.composer ]; then
     mkdir /.composer
+    echo "Running Initial App Setup"
+    php artisan app:setup --force
+else
+    echo "Running Minimal App Setup"
+    php artisan app:setup
 fi
 
 chmod -R ugo+rw /.composer
 
-##
-# RUN MIGRATIONS + SEEDS
-##
-php artisan app:setup
 
 if [ $# -gt 0 ];then
     exec gosu $WWWUSER "$@"

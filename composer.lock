@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86af9f4d54fa1be73ff8d5bd559d438c",
+    "content-hash": "f30722fbba33b492ea61564fb1256168",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5871,6 +5871,64 @@
             "time": "2021-08-17T16:00:47+00:00"
         },
         {
+            "name": "mll-lab/laravel-db-ready",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mll-lab/laravel-db-ready.git",
+                "reference": "50ac0924dfa1a4bf78201e0c2605b2879f493310"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mll-lab/laravel-db-ready/zipball/50ac0924dfa1a4bf78201e0c2605b2879f493310",
+                "reference": "50ac0924dfa1a4bf78201e0c2605b2879f493310",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^6 || ^7 || ^8",
+                "php": "^7.2 || ^8"
+            },
+            "require-dev": {
+                "nunomaduro/larastan": "^0.6",
+                "orchestra/database": "^4 || ^5 || ^6",
+                "orchestra/testbench": "^4 || ^5 || ^6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MLL\\LaravelDbReady\\LaravelDbReadyServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MLL\\LaravelDbReady\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Benedikt Franke",
+                    "email": "benedikt@franke.tech"
+                }
+            ],
+            "description": "An artisan command to check if a database connection is ready",
+            "keywords": [
+                "database",
+                "laravel",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/mll-lab/laravel-db-ready/issues",
+                "source": "https://github.com/mll-lab/laravel-db-ready/tree/v3.0.0"
+            },
+            "time": "2020-12-10T15:32:52+00:00"
+        },
+        {
             "name": "mockery/mockery",
             "version": "1.4.3",
             "source": {
@@ -7866,8 +7924,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.3|^8.0"
+        "php": "^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.0.0"
 }
