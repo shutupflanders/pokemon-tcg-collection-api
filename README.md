@@ -75,10 +75,10 @@ To get a local copy up and running follow these simple steps.
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+* [Docker Compose](https://docs.docker.com/compose/install/) must be installed.
+* Export your [TCG Collector](https://www.tcgcollector.com/) collection <em>This can be done
+by logging in, clicking your username in the top right and then "Export Collection".</em> Once done 
+you should have a file called `tcgcollector-*.csv` - make a note of the path to this file for later.
 
 ### Installation
 
@@ -86,20 +86,26 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    git clone https://github.com/shutupflanders/pokemon-tcg-collection-api.git
    ```
-2. Install NPM packages
-   ```sh
-   npm install
-   ```
+2. Copy/Rename `.env.example` to `.env` and modify the `Override Settings` taking special note
+of the `POKEAPI_KEY` and `COLLECTION_CSV_PATH`
+3. Navigate your terminal to the repository root directory and run `docker-compose up`
+
+**Note:** the initial setup can take upwards of 20 minutes due to it seeding all the sets and cards to the
+local database, watch the container logs and you'll see how it's progressing.
 
 
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Once everything is up and running, install the [PokEbay Chrome Extension](https://github.com/shutupflanders/pokebay-chrome-extension)
+and navigate to your local eBay website and make sure to choose the Card Type "Pokémon", this plugin
+will only work on these listing pages.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+If all is well, you should see the titles of the listings change to red or green (red means the card was not found in your collection,
+ green means you potentially have this card already)
 
+And that's all there is to it!
 
 
 <!-- ROADMAP -->
@@ -132,34 +138,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@TAiNusMaximus](https://twitter.com/TAiNusMaximus) - shutupflanders@gmail.com
+Martin Brooksbank - [@TAiNusMaximus](https://twitter.com/TAiNusMaximus)
 
 Project Link: [https://github.com/shutupflanders/pokemon-tcg-collection-api](https://github.com/shutupflanders/pokemon-tcg-collection-api)
-
-
-
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-
-* []()
-* []()
-* []()
-
-
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/shutupflanders/repo.svg?style=for-the-badge
-[contributors-url]: https://github.com/shutupflanders/pokemon-tcg-collection-api/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/shutupflanders/repo.svg?style=for-the-badge
-[forks-url]: https://github.com/shutupflanders/pokemon-tcg-collection-api/network/members
-[stars-shield]: https://img.shields.io/github/stars/shutupflanders/repo.svg?style=for-the-badge
-[stars-url]: https://github.com/shutupflanders/pokemon-tcg-collection-api/stargazers
-[issues-shield]: https://img.shields.io/github/issues/shutupflanders/repo.svg?style=for-the-badge
-[issues-url]: https://github.com/shutupflanders/pokemon-tcg-collection-api/issues
-[license-shield]: https://img.shields.io/github/license/shutupflanders/repo.svg?style=for-the-badge
-[license-url]: https://github.com/shutupflanders/pokemon-tcg-collection-api/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/shutupflanders
