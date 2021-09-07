@@ -42,6 +42,7 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="#donate">Donate</a></li>
   </ol>
 </details>
 
@@ -92,19 +93,51 @@ of the `POKEAPI_KEY` and `COLLECTION_CSV_PATH`
 **Note:** the initial setup can take upwards of 20 minutes due to it seeding all the sets and cards to the
 local database, watch the container logs and you'll see how it's progressing.
 
+Once the setup script is complete, and you see `Application setup completed.` in the logs, you can verify
+everything is working by visiting `http://localhost/health-check` <em>(replace `localhost` with your `APP_URL` if you've changed it)</em>
+
+If the API is running you should see:
+
+```json
+{
+  "success": true,
+  "message": "I'm super, thanks for asking."
+}
+```
 
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
 Once everything is up and running, install the [PokEbay Chrome Extension](https://github.com/shutupflanders/pokebay-chrome-extension)
-and navigate to your local eBay website and make sure to choose the Card Type "Pokémon", this plugin
+and navigate to your local eBay website, run a search and make the Card Type in the filters is set to "Pokémon", this plugin
 will only work on these listing pages.
 
 If all is well, you should see the titles of the listings change to red or green (red means the card was not found in your collection,
  green means you potentially have this card already)
 
 And that's all there is to it!
+
+### Updating your collection
+If you modify your collection at any point, export the CSV again and overwrite the old one if possible, then run the following command
+in your terminal:
+
+`docker-compose exec app php artisan collection:sync`
+
+This will sync the local database with your new collection csv file.
+
+**Note**: if you don't want to overwrite the original CSV file, just simply run `docker-compose down`, update the `COLLECTION_CSV_PATH` in your `.env` file to the new
+location and then bring everything back up with `docker-compose up` - the `collection:sync` command is run on startup.
+
+### Other Utilities
+
+There are a few other commands this application accepts, and can be executed by running the following command:
+`docker-compose exec app php artisan <<command>>`
+
+* `app:setup --force` - wipes the database and starts again.
+* `collection:sync` - re-syncs your collection from the CSV file mentioned above.
+* `sets:sync` - updates the sets in your local database (useful for when a new set is released).
+* `cards:sync` - goes through each set in your database and updates the card information (**note** this can take a while!).
 
 
 <!-- ROADMAP -->
@@ -132,11 +165,22 @@ Contributions are what make the open source community such an amazing place to l
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-
-
 <!-- CONTACT -->
 ## Contact
 
 Martin Brooksbank - [@TAiNusMaximus](https://twitter.com/TAiNusMaximus)
 
 Project Link: [https://github.com/shutupflanders/pokemon-tcg-collection-api](https://github.com/shutupflanders/pokemon-tcg-collection-api)
+
+
+<!-- DONATE -->
+## Donate
+
+If you like what I've done here, please consider buying me a beer (I don't drink coffee!)
+
+[![Buy me a coffee][buymeacoffee-shield]][buymeacoffee]
+
+
+<!-- ASSETS -->
+[buymeacoffee-shield]: https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg
+[buymeacoffee]: https://www.buymeacoffee.com/IcV9egW
