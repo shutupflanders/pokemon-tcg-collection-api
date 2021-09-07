@@ -21,7 +21,7 @@ class SyncCollectionCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'collection:sync {filename}';
+    protected $signature = 'collection:sync {filename=app/data/collection.csv}';
 
     /**
      * The console command description.

@@ -45,20 +45,20 @@
             if($force)
             {
                 $this->call('migrate:fresh');
+                $this->comment('Seeding Database...');
+                $this->call('db:seed');
+
+                $this->comment('Generating Set Data...');
+                $this->call('sets:sync');
+
+                $this->comment('Generating Card Data...');
+                $this->call('cards:sync');
             }
             else
             {
                 $this->call('migrate', ['--force'=>true]);
             }
 
-            $this->comment('Seeding Database...');
-            $this->call('db:seed');
-
-            $this->comment('Generating Set Data...');
-            $this->call('sets:sync');
-
-            $this->comment('Generating Card Data...');
-            $this->call('cards:sync');
 
             $this->comment('Importing Card Collection...');
             $this->call('collection:sync', ['filename'=>'app/data/collection.csv']);
