@@ -109,7 +109,7 @@ If the API is running you should see:
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Once everything is up and running, install the [PokEbay Chrome Extension](https://github.com/shutupflanders/pokebay-chrome-extension)
+Once everything is up and running, install the [PokEbay Chrome Extension](https://chrome.google.com/webstore/detail/pokebay-lookup-tool/lkmcogjefgehdbfeliegkjamjmbhjoie)
 and navigate to your local eBay website, run a search and make the Card Type in the filters is set to "Pokémon", this plugin
 will only work on these listing pages.
 
